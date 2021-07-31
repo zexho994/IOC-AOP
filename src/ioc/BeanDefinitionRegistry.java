@@ -8,4 +8,24 @@ package ioc;
  */
 public interface BeanDefinitionRegistry {
 
+    /**
+     * 注册一个新的Bean
+     *
+     * @param beanName       bean的注册使用名称
+     * @param beanDefinition bean的类型
+     */
+    void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
+
+    void removeBeanDefinition(String beanName);
+
+    BeanDefinition getBeanDefinition(String beanName);
+
+    boolean containsBeanDefinition(String beanName);
+
+    String[] getBeanDefinitionNames();
+
+    int getBeanDefinitionCount();
+
+    boolean isBeanNameInUse(String beanName);
+
 }
