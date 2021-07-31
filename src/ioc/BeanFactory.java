@@ -8,6 +8,8 @@ package ioc;
  */
 public interface BeanFactory {
 
+    Object getBean(String beanName);
+
     /**
      * 根据名称获取一个bean
      *

@@ -11,4 +11,8 @@ public interface BeanDefinition {
     void setBeanClassName(String beanClassName);
 
     String getBeanClassName();
+
+    void setBeanClass(Class beanClass);
+
+    Class getBeanClass();
 }
