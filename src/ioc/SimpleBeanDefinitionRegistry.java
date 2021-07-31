@@ -19,7 +19,7 @@ public class SimpleBeanDefinitionRegistry implements BeanDefinitionRegistry {
      * K: bean name
      * V: bean
      */
-    private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);
+    private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(64);
 
     @Override
     public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {

@@ -6,7 +6,7 @@ package ioc;
  */
 public class SimpleBeanFactory implements BeanFactory {
 
-    private final BeanDefinitionRegistry registry;
+    protected final BeanDefinitionRegistry registry;
 
     public SimpleBeanFactory(BeanDefinitionRegistry registry) {
         this.registry = registry;

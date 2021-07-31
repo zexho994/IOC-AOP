@@ -9,8 +9,7 @@ public class SimpleBeanDefinition implements BeanDefinition {
     private String beanDefinitionName;
     private Class<?> beanDefinitionClass;
 
-    public SimpleBeanDefinition(String beanName, Class<?> beanClass) {
-        this.beanDefinitionName = beanName;
+    public SimpleBeanDefinition(Class<?> beanClass) {
         this.beanDefinitionClass = beanClass;
     }
 
