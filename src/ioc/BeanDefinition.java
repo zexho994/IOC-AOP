@@ -12,7 +12,7 @@ public interface BeanDefinition {
 
     String getBeanClassName();
 
-    void setBeanClass(Class beanClass);
+    void setBeanInstance(Object instance);
 
-    Class getBeanClass();
+    Object getBeanInstance();
 }

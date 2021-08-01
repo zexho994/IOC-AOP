@@ -1,6 +1,7 @@
 package ioc.test;
 
-import ioc.*;
+import ioc.ApplicationContext;
+import ioc.CustomBeanDefinitionRegistry;
 
 /**
  * @author Zexho
@@ -10,25 +11,20 @@ public class App {
 
     public static void main(String[] args) {
         // 创建一个注册类,注册类中实现注册逻辑
-        BeanDefinitionRegistry registry = new SimpleBeanDefinitionRegistry();
+        CustomBeanDefinitionRegistry registry = new MyBeanDefinition();
 
         // 注册类添加到工厂中
-        ApplicationContext factory = new ApplicationContext(registry) {
-            @Override
-            public void loadBean() {
-                System.out.println("factory => load bean");
-                BeanDefinition bean1 = new SimpleBeanDefinition(BeanTest1.class);
-                this.registry.registerBeanDefinition("BeanTest1", bean1);
-            }
-        };
+        ApplicationContext factory = new ApplicationContext(registry);
 
-        factory.loadBean();
+        // 获取类
+        BeanTest obj1 = factory.getBeanInstance("BeanTest1", BeanTest1.class);
+        obj1.print();
+        BeanTest obj2 = factory.getBeanInstance("BeanTest2", BeanTest1.class);
+        obj2.print(); // bean test 2
+        BeanTest obj3 = factory.getBeanInstance("BeanTest3", BeanTest2.class);
+        obj3.print(); // bean test 2
 
-        BeanTest bean1 = factory.getBean("BeanTest1", BeanTest.class);
-        bean1.print(); // bean test 1
-//
-//        BeanTest bean2 = factory.getBean("BeanTest2", BeanTest.class);
-//        bean2.print(); // bean test 2
+        System.out.printf("obj1 == obj2 ? %s \n", obj1 == obj2);
     }
 
 }

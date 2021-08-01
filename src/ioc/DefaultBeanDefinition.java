@@ -4,15 +4,14 @@ package ioc;
  * @author Zexho
  * @date 2021/7/31 11:21 上午
  */
-public class SimpleBeanDefinition implements BeanDefinition {
+public class DefaultBeanDefinition implements BeanDefinition {
 
     private String beanDefinitionName;
-    private Class<?> beanDefinitionClass;
+    private Object beanDefinitionInstance;
 
-    public SimpleBeanDefinition(Class<?> beanClass) {
-        this.beanDefinitionClass = beanClass;
+    public DefaultBeanDefinition(Object obj) {
+        this.beanDefinitionInstance = obj;
     }
-
 
     @Override
     public void setBeanClassName(String beanName) {
@@ -25,13 +24,13 @@ public class SimpleBeanDefinition implements BeanDefinition {
     }
 
     @Override
-    public void setBeanClass(Class beanClass) {
-        this.beanDefinitionClass = beanClass;
+    public void setBeanInstance(Object instance) {
+        this.beanDefinitionInstance = instance;
     }
 
     @Override
-    public Class getBeanClass() {
-        return this.beanDefinitionClass;
+    public Object getBeanInstance() {
+        return this.beanDefinitionInstance;
     }
 
 }

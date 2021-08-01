@@ -8,7 +8,13 @@ package ioc;
  */
 public interface BeanFactory {
 
-    Object getBean(String beanName);
+    /**
+     * 根据名称获取bean
+     *
+     * @param beanName bean名称
+     * @return bean名称对应的Bean
+     */
+    BeanDefinition getBeanInstance(String beanName);
 
     /**
      * 根据名称获取一个bean
@@ -17,5 +23,5 @@ public interface BeanFactory {
      * @param requiredType bean类型
      * @return bean名称对应的Bean
      */
-    <T> T getBean(String beanName, Class<T> requiredType);
+    <T> T getBeanInstance(String beanName, Class<T> requiredType);
 }

@@ -4,10 +4,12 @@ package ioc;
  * @author Zexho
  * @date 2021/7/31 1:11 下午
  */
-public abstract class ApplicationContext extends SimpleBeanFactory implements ResourceLoader {
+public class ApplicationContext extends SimpleBeanFactory {
 
-    public ApplicationContext(BeanDefinitionRegistry registry) {
+    public ApplicationContext(CustomBeanDefinitionRegistry registry) {
         super(registry);
+
+        registry.loadBean();
     }
 
 }

@@ -8,18 +8,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * BeanDefinitionRegistry简单实现
- * {@code org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry}
+ * {@code org.springframework.beans.factory.support.DefaultBeanDefinitionRegistry}
  *
  * @author Zexho
  * @date 2021/7/31 10:52 上午
  */
-public class SimpleBeanDefinitionRegistry implements BeanDefinitionRegistry {
+public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry {
 
     /**
      * K: bean name
      * V: bean
      */
-    private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(64);
+    protected final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(64);
 
     @Override
     public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
@@ -45,12 +45,12 @@ public class SimpleBeanDefinitionRegistry implements BeanDefinitionRegistry {
     }
 
     @Override
-    public BeanDefinition getBeanDefinition(String beanName, Class requiredType) {
+    public <T> BeanDefinition getBeanDefinition(String beanName, Class<T> requiredType) {
         BeanDefinition beanDefinition = this.getBeanDefinition(beanName);
-        if (!beanDefinition.getBeanClass().isInstance(requiredType)) {
+        if (!beanDefinition.getBeanInstance().getClass().isAssignableFrom(requiredType)) {
             throw new NoSuchBeanException(beanName, requiredType);
         }
-        return null;
+        return beanDefinition;
     }
 
     @Override

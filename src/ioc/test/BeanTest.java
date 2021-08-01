@@ -5,5 +5,5 @@ package ioc.test;
  * @date 2021/7/31 10:47 上午
  */
 public interface BeanTest {
-    public void print();
+    void print();
 }
