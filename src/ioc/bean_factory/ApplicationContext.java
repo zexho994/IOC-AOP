@@ -1,4 +1,6 @@
-package ioc;
+package ioc.bean_factory;
+
+import ioc.bean_definition_registry.CustomBeanDefinitionRegistry;
 
 /**
  * @author Zexho

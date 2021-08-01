@@ -1,4 +1,4 @@
-package ioc;
+package ioc.bean_definition;
 
 /**
  * 就是Bean，对类进行一层的封装。

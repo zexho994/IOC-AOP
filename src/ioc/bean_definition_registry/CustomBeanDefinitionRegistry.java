@@ -1,4 +1,6 @@
-package ioc;
+package ioc.bean_definition_registry;
+
+import ioc.bean_resource_loader.ResourceLoaderFromCode;
 
 /**
  * @author Zexho

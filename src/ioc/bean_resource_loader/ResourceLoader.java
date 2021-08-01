@@ -1,4 +1,4 @@
-package ioc;
+package ioc.bean_resource_loader;
 
 /**
  * @author Zexho

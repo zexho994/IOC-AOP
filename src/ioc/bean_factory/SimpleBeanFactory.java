@@ -1,4 +1,7 @@
-package ioc;
+package ioc.bean_factory;
+
+import ioc.bean_definition.BeanDefinition;
+import ioc.bean_definition_registry.BeanDefinitionRegistry;
 
 /**
  * @author Zexho

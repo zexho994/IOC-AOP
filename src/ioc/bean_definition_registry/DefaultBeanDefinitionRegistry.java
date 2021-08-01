@@ -1,6 +1,7 @@
-package ioc;
+package ioc.bean_definition_registry;
 
 import exceptions.NoSuchBeanException;
+import ioc.bean_definition.BeanDefinition;
 import utils.Assert;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ioc.test;
+package ioc;
 
 /**
  * @author Zexho

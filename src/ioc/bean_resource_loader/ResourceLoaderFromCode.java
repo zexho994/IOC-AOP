@@ -1,4 +1,4 @@
-package ioc;
+package ioc.bean_resource_loader;
 
 /**
  * 以代码的方式进行注册

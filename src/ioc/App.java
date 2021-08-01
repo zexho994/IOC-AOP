@@ -1,7 +1,7 @@
-package ioc.test;
+package ioc;
 
-import ioc.ApplicationContext;
-import ioc.CustomBeanDefinitionRegistry;
+import ioc.bean_definition_registry.CustomBeanDefinitionRegistry;
+import ioc.bean_factory.ApplicationContext;
 
 /**
  * @author Zexho
