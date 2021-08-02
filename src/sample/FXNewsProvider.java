@@ -8,7 +8,7 @@ package sample;
  */
 public class FXNewsProvider {
     private IFXNewsListener newsListener;
-    private IFXNewPersister newPersistener;
+    private IFXNewsPersister newPersistener;
 
     /**
      * 通过构造函数传入参数
@@ -16,7 +16,7 @@ public class FXNewsProvider {
      * @param listener
      * @param persist
      */
-    public FXNewsProvider(IFXNewsListener listener, IFXNewPersister persist) {
+    public FXNewsProvider(IFXNewsListener listener, IFXNewsPersister persist) {
         this.newsListener = listener;
         this.newPersistener = persist;
     }

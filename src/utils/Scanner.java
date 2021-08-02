@@ -3,6 +3,7 @@ package utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Zexho
@@ -12,20 +13,29 @@ public class Scanner {
 
     public static List<String> scanBean() {
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        ClassLoader classLoader = Scanner.class.getClassLoader();
+        int pathLen = path.length();
 
-        File root = new File(path);
         List<String> beans = new ArrayList<>();
+        scan(new File(path), beans);
 
-        scan(root, beans, classLoader);
+        for (String bean : beans) {
+            String sub = bean.substring(pathLen, bean.lastIndexOf('.'));
+            String b = sub.replace("/", ".");
+            try {
+                Class<?> aClass = Class.forName(b);
+                System.out.println("new class = " + aClass.getName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
         return beans;
     }
 
-    public static void scan(File file, List<String> beans, ClassLoader classLoader) {
-        for (File f : file.listFiles()) {
+    public static void scan(File file, List<String> beans) {
+        for (File f : Objects.requireNonNull(file.listFiles())) {
             if (f.isDirectory()) {
-                scan(f, beans, classLoader);
+                scan(f, beans);
             } else {
                 beans.add(f.getAbsolutePath());
             }

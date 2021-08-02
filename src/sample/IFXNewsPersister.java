@@ -5,6 +5,6 @@ package sample;
  * @author Zexho
  * @date 2021/7/30 7:02 下午
  */
-public interface IFXNewPersister {
+public interface IFXNewsPersister {
     void persistNews(FXNewsBean newsBean);
 }

@@ -18,17 +18,9 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
 
         String classPath = System.getProperty("java.class.path");
         System.out.println("class path: " + classPath);
-        File classFile = new File(classPath);
-
-        System.out.println("loadBean by AnnotationDefinitionLoaderRegistry");
-        // 获取所有类
-        List<Class<?>> classes = new ArrayList<>();
 
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         System.out.println("context path: " + path);
-
-//        String classPath = this.getClass().getResource("/").getPath();
-//        System.out.println("class path: " + classPath);
 
         String curOutPath = this.getClass().getResource("").getPath();
         System.out.println("src path: " + curOutPath);
