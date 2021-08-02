@@ -2,13 +2,13 @@ package ioc.bean_definition_registry;
 
 import ioc.bean_definition.BeanDefinition;
 import ioc.bean_definition.DefaultBeanDefinition;
-import ioc.bean_resource_loader.ResourceLoaderFromCode;
+import ioc.bean_resource_loader.ResourceLoader;
 
 /**
  * @author Zexho
  * @date 2021/8/1 1:31 下午
  */
-public abstract class CustomBeanDefinitionRegistry extends DefaultBeanDefinitionRegistry implements ResourceLoaderFromCode {
+public abstract class AbstractDefinitionLoaderRegistry extends DefaultBeanDefinitionRegistry implements ResourceLoader {
 
     @Override
     public abstract void loadBean();

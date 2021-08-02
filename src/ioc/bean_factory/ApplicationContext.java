@@ -1,6 +1,6 @@
 package ioc.bean_factory;
 
-import ioc.bean_definition_registry.CustomBeanDefinitionRegistry;
+import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 
 /**
  * @author Zexho
@@ -8,7 +8,7 @@ import ioc.bean_definition_registry.CustomBeanDefinitionRegistry;
  */
 public class ApplicationContext extends SimpleBeanFactory {
 
-    public ApplicationContext(CustomBeanDefinitionRegistry registry) {
+    public ApplicationContext(AbstractDefinitionLoaderRegistry registry) {
         super(registry);
 
         registry.loadBean();
