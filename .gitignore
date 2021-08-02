@@ -22,3 +22,5 @@
 /out/production/winter/ioc/ResourceLoader.class
 /out/production/winter/ioc/ResourceLoaderFromCode.class
 /out/production/winter/ioc/SimpleBeanFactory.class
+
+#/out/production/winter/*/*.class
