@@ -1,7 +1,4 @@
-import ioc.BeanTest;
-import ioc.BeanTest1;
-import ioc.BeanTest2;
-import ioc.MyCodeBeanDefinition;
+import ioc.*;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
 import ioc.bean_factory.ApplicationContext;
@@ -28,8 +25,6 @@ public class App {
         obj1.print();
         BeanTest obj2 = factory.getBeanInstance("BeanTest2", BeanTest2.class);
         obj2.print();
-
-        System.out.printf("obj1 == obj2 ? %s \n", obj1 == obj2);
     }
 
     public static void useAnnotationBeanDefinition() {
@@ -42,9 +37,11 @@ public class App {
         BeanTest obj1 = factory.getBeanInstance("BeanTest1", BeanTest1.class);
         obj1.print();
         BeanTest obj2 = factory.getBeanInstance("BeanTest2", BeanTest2.class);
-        obj2.print(); // bean test 2
+        obj2.print();
 
-        System.out.printf("obj1 == obj2 ? %s \n", obj1 == obj2);
+        // 测试自动装载@Autowired
+        AutowiredTest at = factory.getBeanInstance("AutowiredTest", AutowiredTest.class);
+        at.print();
     }
 
 }
