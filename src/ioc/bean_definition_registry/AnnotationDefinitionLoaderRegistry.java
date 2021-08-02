@@ -15,10 +15,16 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
 
     @Override
     public void loadBean() {
-        List<Class<?>> classes = Scanner.scanBean();
-        if (classes.size() == 0) {
+        List<Class<?>> beans = Scanner.scanBean();
+        if (beans.size() == 0) {
             return;
         }
+
+        // 创建实例
+        for (Class<?> bean : beans) {
+            this.register(bean.getSimpleName(), bean);
+        }
+
         ;
     }
 
