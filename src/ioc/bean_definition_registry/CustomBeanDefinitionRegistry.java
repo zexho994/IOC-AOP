@@ -1,5 +1,7 @@
 package ioc.bean_definition_registry;
 
+import ioc.bean_definition.BeanDefinition;
+import ioc.bean_definition.DefaultBeanDefinition;
 import ioc.bean_resource_loader.ResourceLoaderFromCode;
 
 /**
@@ -10,5 +12,11 @@ public abstract class CustomBeanDefinitionRegistry extends DefaultBeanDefinition
 
     @Override
     public abstract void loadBean();
+
+    @SuppressWarnings("unchecked")
+    public <T> void register(String beanName, Class<T> clazz) {
+        BeanDefinition definition = new DefaultBeanDefinition(beanName, clazz);
+        this.beanMap.put(beanName, definition);
+    }
 
 }

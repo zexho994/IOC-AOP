@@ -1,6 +1,5 @@
 package ioc;
 
-import ioc.bean_definition.DefaultBeanDefinition;
 import ioc.bean_definition_registry.CustomBeanDefinitionRegistry;
 
 /**
@@ -11,11 +10,13 @@ public class MyBeanDefinition extends CustomBeanDefinitionRegistry {
 
     @Override
     public void loadBean() {
-        System.out.println("factory => load bean");
+        System.out.println(" factory => to load bean ");
 
-        this.registerBeanDefinition("BeanTest1", new DefaultBeanDefinition(new BeanTest1()));
-        this.registerBeanDefinition("BeanTest2", new DefaultBeanDefinition(new BeanTest1()));
-        this.registerBeanDefinition("BeanTest3", new DefaultBeanDefinition(new BeanTest2()));
+        // 注册bean
+        this.register("BeanTest1", BeanTest1.class);
+        this.register("BeanTest2", BeanTest2.class);
+
+        System.out.println(" factory => load bean success");
     }
 
 }

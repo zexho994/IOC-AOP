@@ -17,13 +17,13 @@ public class SimpleBeanFactory implements BeanFactory {
 
     @Override
     public BeanDefinition getBeanInstance(String beanName) {
-        return this.registry.getBeanDefinition(beanName);
+        return this.registry.getBean(beanName);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getBeanInstance(String beanName, Class<T> requiredType) {
-        BeanDefinition beanDefinition = this.registry.getBeanDefinition(beanName, requiredType);
-        return (T) beanDefinition.getBeanInstance();
+        BeanDefinition beanDefinition = this.registry.getBean(beanName, requiredType);
+        return (T) beanDefinition.getInstance();
     }
 }

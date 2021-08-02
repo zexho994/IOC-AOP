@@ -19,10 +19,10 @@ public class App {
         // 获取类
         BeanTest obj1 = factory.getBeanInstance("BeanTest1", BeanTest1.class);
         obj1.print();
-        BeanTest obj2 = factory.getBeanInstance("BeanTest2", BeanTest1.class);
+        BeanTest obj2 = factory.getBeanInstance("BeanTest2", BeanTest2.class);
         obj2.print(); // bean test 2
-        BeanTest obj3 = factory.getBeanInstance("BeanTest3", BeanTest2.class);
-        obj3.print(); // bean test 2
+//        BeanTest obj3 = factory.getBeanInstance("BeanTest3", BeanTest2.class);
+//        obj3.print(); // bean test 2
 
         System.out.printf("obj1 == obj2 ? %s \n", obj1 == obj2);
     }

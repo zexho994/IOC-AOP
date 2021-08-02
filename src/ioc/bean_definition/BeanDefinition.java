@@ -4,15 +4,43 @@ package ioc.bean_definition;
  * 就是Bean，对类进行一层的封装。
  *
  * @author Zexho
- * @date 2021/7/31 9:31 上午
+ * @date 2021 /7/31 9:31 上午
  */
 public interface BeanDefinition {
 
-    void setBeanClassName(String beanClassName);
+    /**
+     * Sets name.
+     *
+     * @param beanClassName the bean class name
+     */
+    void setName(String beanClassName);
 
-    String getBeanClassName();
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    String getName();
 
-    void setBeanInstance(Object instance);
+    /**
+     * Sets instance.
+     *
+     * @param instance the instance
+     */
+    void setInstance(Object instance);
 
-    Object getBeanInstance();
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
+    Object getInstance();
+
+    /**
+     * Gets bean class.
+     *
+     * @return bean class
+     */
+    Class getBeanClass();
+
 }

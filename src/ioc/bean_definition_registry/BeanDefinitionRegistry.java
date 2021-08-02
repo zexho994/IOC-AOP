@@ -16,20 +16,31 @@ public interface BeanDefinitionRegistry {
      * @param beanName       bean的注册使用名称
      * @param beanDefinition bean的类型
      */
-    void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
+    void registerBean(String beanName, BeanDefinition beanDefinition);
 
-    void removeBeanDefinition(String beanName);
+    /**
+     * 移除一个Bean
+     *
+     * @param beanName 要移除的Bean的名称
+     */
+    void removeBean(String beanName);
 
-    BeanDefinition getBeanDefinition(String beanName);
+    /**
+     * 根据名称获取Bean
+     *
+     * @param beanName bean名称
+     * @return 已注册的 {@link BeanDefinition} 对象
+     */
+    BeanDefinition getBean(String beanName);
 
-    <T> BeanDefinition getBeanDefinition(String beanName, Class<T> requiredType);
-
-    boolean containsBeanDefinition(String beanName);
-
-    String[] getBeanDefinitionNames();
-
-    int getBeanDefinitionCount();
-
-    boolean isBeanNameInUse(String beanName);
+    /**
+     * 获取Bean
+     * {@link BeanDefinition}
+     *
+     * @param beanName     bean名称
+     * @param requiredType bean类型，会进行校验
+     * @return 已注册的 {@link BeanDefinition} 对象
+     */
+    <T> BeanDefinition getBean(String beanName, Class<T> requiredType);
 
 }

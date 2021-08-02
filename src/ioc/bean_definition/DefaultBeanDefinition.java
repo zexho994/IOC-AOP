@@ -1,38 +1,67 @@
 package ioc.bean_definition;
 
-import ioc.bean_definition.BeanDefinition;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Zexho
  * @date 2021/7/31 11:21 上午
  */
-public class DefaultBeanDefinition implements BeanDefinition {
+public class DefaultBeanDefinition<T> implements BeanDefinition {
 
-    private String beanDefinitionName;
-    private Object beanDefinitionInstance;
+    private String beanName;
+    private final Class<T> beanClass;
+    private T beanInstance = null;
 
-    public DefaultBeanDefinition(Object obj) {
-        this.beanDefinitionInstance = obj;
+    public DefaultBeanDefinition(String name, Class<T> clazz) {
+        this.beanName = name;
+        this.beanClass = clazz;
+
+        // new instance
+        createInstance();
+    }
+
+    /**
+     * 为本Bean创建一个实例，
+     */
+    @SuppressWarnings("unchecked")
+    public void createInstance() {
+        Constructor<?>[] declaredConstructors = this.beanClass.getConstructors();
+        Constructor<?> noArgsConstructor = declaredConstructors[0];
+        noArgsConstructor.setAccessible(true);
+
+        try {
+            Object instance = noArgsConstructor.newInstance(beanInstance);
+            this.beanInstance = (T) noArgsConstructor.newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
-    public void setBeanClassName(String beanName) {
-        this.beanDefinitionName = beanName;
+    public void setName(String beanName) {
+        this.beanName = beanName;
     }
 
     @Override
-    public String getBeanClassName() {
-        return this.beanDefinitionName;
+    public String getName() {
+        return this.beanName;
     }
 
     @Override
-    public void setBeanInstance(Object instance) {
-        this.beanDefinitionInstance = instance;
+    public void setInstance(Object instance) {
+        this.beanInstance = (T) instance;
     }
 
     @Override
-    public Object getBeanInstance() {
-        return this.beanDefinitionInstance;
+    public Object getInstance() {
+        return this.beanInstance;
+    }
+
+    @Override
+    public Class<T> getBeanClass() {
+        return this.beanClass;
     }
 
 }
