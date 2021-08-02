@@ -1,5 +1,7 @@
-package ioc;
-
+import ioc.BeanTest;
+import ioc.BeanTest1;
+import ioc.BeanTest2;
+import ioc.MyCodeBeanDefinition;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
 import ioc.bean_factory.ApplicationContext;
@@ -17,7 +19,6 @@ public class App {
 
         // 注册类添加到工厂中
         ApplicationContext factory = new ApplicationContext(registry);
-
         ApplicationContext factory2 = new ApplicationContext(registry2);
 
         // 获取类
