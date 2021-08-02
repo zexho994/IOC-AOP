@@ -1,5 +1,7 @@
 package ioc.bean_definition_registry;
 
+import utils.Scanner;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,29 +15,11 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
 
     @Override
     public void loadBean() {
-        String property = System.getProperty("user.dir");
-        System.out.println("user.dir: " + property);
-
-        String classPath = System.getProperty("java.class.path");
-        System.out.println("class path: " + classPath);
-
-        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        System.out.println("context path: " + path);
-
-        String curOutPath = this.getClass().getResource("").getPath();
-        System.out.println("src path: " + curOutPath);
-
-
-        File dir = new File("");
-        try {
-            String canonicalPath = dir.getCanonicalPath();
-            System.out.println("cannoicalPath: " + canonicalPath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<Class<?>> classes = Scanner.scanBean();
+        if (classes.size() == 0) {
+            return;
         }
-
-        // 判断类是否有@Bean注解
-
+        ;
     }
 
 }
