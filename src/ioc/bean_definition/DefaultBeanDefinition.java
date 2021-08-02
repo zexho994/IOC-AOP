@@ -31,8 +31,8 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
         noArgsConstructor.setAccessible(true);
 
         try {
-            Object instance = noArgsConstructor.newInstance(beanInstance);
-            this.beanInstance = (T) noArgsConstructor.newInstance();
+            Object instance = noArgsConstructor.newInstance();
+            this.beanInstance = (T) instance;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -50,6 +50,7 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void setInstance(Object instance) {
         this.beanInstance = (T) instance;
     }
