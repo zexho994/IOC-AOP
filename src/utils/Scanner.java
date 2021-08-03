@@ -54,11 +54,7 @@ public class Scanner {
     }
 
     private static boolean isBean(Class<?> clazz) {
-        Bean[] beanAnnotations = clazz.getDeclaredAnnotationsByType(Bean.class);
-        for (Bean beanAnnotation : beanAnnotations) {
-            return true;
-        }
-        return false;
+        return clazz.getDeclaredAnnotationsByType(Bean.class).length > 0;
     }
 
 }
