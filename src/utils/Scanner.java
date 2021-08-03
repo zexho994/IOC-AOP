@@ -15,11 +15,14 @@ public class Scanner {
 
     public static List<Class<?>> scanBean() {
         ClassLoader contextClassLoader = getDefaultClassLoader();
-        assert contextClassLoader.getResource("") != null : "get contextClassLoader resource fail";
-        String path = Objects.requireNonNull(contextClassLoader.getResource("")).getPath();
-        List<String> classes = new ArrayList<>();
-        scanAddClasses(new File(path), classes);
+        List<String> classes = scanClasses(contextClassLoader);
+        return filtersAndLoadBeans(classes, contextClassLoader);
+    }
+
+    private static List<Class<?>> filtersAndLoadBeans(List<String> classes, ClassLoader contextClassLoader) {
         List<Class<?>> beans = new ArrayList<>(classes.size());
+        String path = Objects.requireNonNull(contextClassLoader.getResource("")).getPath();
+
         for (String c : classes) {
             try {
                 Class<?> aClass = contextClassLoader.loadClass(parseFullyQualifiedName(c, path.length()));
@@ -30,7 +33,6 @@ public class Scanner {
                 e.printStackTrace();
             }
         }
-
         return beans;
     }
 
@@ -41,6 +43,15 @@ public class Scanner {
     private static String parseFullyQualifiedName(String classPath, int prefixLen) {
         String s = classPath.substring(prefixLen, classPath.lastIndexOf('.'));
         return s.replace("/", ".");
+    }
+
+    private static List<String> scanClasses(ClassLoader contextClassLoader) {
+        List<String> classes = new ArrayList<>();
+        String path = Objects.requireNonNull(contextClassLoader.getResource("")).getPath();
+
+        scanAddClasses(new File(path), classes);
+
+        return classes;
     }
 
     private static void scanAddClasses(File file, List<String> beans) {
