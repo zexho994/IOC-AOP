@@ -4,8 +4,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
+ * The type Default bean definition.
+ *
+ * @param <T> the type parameter
  * @author Zexho
- * @date 2021/7/31 11:21 上午
+ * @date 2021 /7/31 11:21 上午
  */
 public class DefaultBeanDefinition<T> implements BeanDefinition {
 
@@ -18,11 +21,16 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
      */
     private int status = 0;
 
+    /**
+     * Instantiates a new Default bean definition.
+     *
+     * @param name  the name
+     * @param clazz the clazz
+     */
     public DefaultBeanDefinition(String name, Class<T> clazz) {
         this.beanName = name;
         this.beanClass = clazz;
 
-        // new instance
         createInstance();
     }
 
@@ -36,10 +44,9 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
         noArgsConstructor.setAccessible(true);
 
         try {
-            Object instance = noArgsConstructor.newInstance();
-            this.beanInstance = (T) instance;
+            this.beanInstance = (T) noArgsConstructor.newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
         }
 
     }

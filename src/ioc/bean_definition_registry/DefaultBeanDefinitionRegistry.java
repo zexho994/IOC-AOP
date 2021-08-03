@@ -46,11 +46,11 @@ public class DefaultBeanDefinitionRegistry implements BeanDefinitionRegistry {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T> BeanDefinition getBean(String beanName, Class<T> requiredType) {
         BeanDefinition beanDefinition = this.getBean(beanName);
-        if (!beanDefinition.getBeanClass().isAssignableFrom(requiredType))
+        if (!beanDefinition.getBeanClass().isAssignableFrom(requiredType)) {
             throw new NoSuchBeanException(beanName, requiredType);
+        }
         return beanDefinition;
     }
 

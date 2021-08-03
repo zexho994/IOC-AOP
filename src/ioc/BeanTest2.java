@@ -8,8 +8,10 @@ import ioc.bean_definition.Bean;
  */
 @Bean
 public class BeanTest2 implements BeanTest {
+
     @Override
     public void print() {
         System.out.println("BeanTest2");
     }
+
 }

@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 public class Scanner {
 
-
     public static List<Class<?>> scanBean() {
         ClassLoader contextClassLoader = getDefaultClassLoader();
         assert contextClassLoader.getResource("") != null : "get contextClassLoader resource fail";

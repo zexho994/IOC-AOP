@@ -10,12 +10,14 @@ import ioc.bean_resource_loader.ResourceLoader;
  */
 public abstract class AbstractDefinitionLoaderRegistry extends DefaultBeanDefinitionRegistry implements ResourceLoader {
 
+    /**
+     * load bean
+     */
     @Override
     public abstract void loadBean();
 
-    @SuppressWarnings("unchecked")
     public <T> void register(String beanName, Class<T> clazz) {
-        BeanDefinition definition = new DefaultBeanDefinition(beanName, clazz);
+        BeanDefinition definition = new DefaultBeanDefinition<>(beanName, clazz);
         this.beanMap.put(beanName, definition);
     }
 

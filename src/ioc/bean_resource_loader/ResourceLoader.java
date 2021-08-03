@@ -6,6 +6,9 @@ package ioc.bean_resource_loader;
  */
 public interface ResourceLoader {
 
+    /**
+     * load bean
+     */
     void loadBean();
 
 }

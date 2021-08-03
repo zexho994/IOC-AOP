@@ -10,8 +10,7 @@ import ioc.bean_factory.ApplicationContext;
 public class App {
 
     public static void main(String[] args) {
-        useCodeBeanDefinition();
-//        useAnnotationBeanDefinition();
+        useAnnotationBeanDefinition();
     }
 
     public static void useCodeBeanDefinition() {
