@@ -11,9 +11,9 @@ import java.util.Objects;
  * @author Zexho
  * @date 2021/8/2 6:15 下午
  */
-public class Scanner {
+public class BeanScanner {
 
-    public static List<Class<?>> scanBean() {
+    public static List<Class<?>> findAllBean() {
         ClassLoader contextClassLoader = getDefaultClassLoader();
         List<String> classes = scanClasses(contextClassLoader);
         return filtersAndLoadBeans(classes, contextClassLoader);

@@ -27,16 +27,10 @@ public class App {
     }
 
     public static void useAnnotationBeanDefinition() {
-        // 创建一个注册类,注册类中使用编码实现注册逻辑
+        // 创建一个注册类,Bean通过注解的方式自动注入
         AbstractDefinitionLoaderRegistry registry = new AnnotationDefinitionLoaderRegistry();
         // 注册类添加到工厂中
         ApplicationContext factory = new ApplicationContext(registry);
-
-        // 获取类
-        BeanTest obj1 = factory.getBeanInstance("BeanTest1", BeanTest1.class);
-        obj1.print();
-        BeanTest obj2 = factory.getBeanInstance("BeanTest2", BeanTest2.class);
-        obj2.print();
 
         // 测试自动装载@Autowired
         AutowiredTest at = (AutowiredTest) factory.getBean("AutowiredTest");

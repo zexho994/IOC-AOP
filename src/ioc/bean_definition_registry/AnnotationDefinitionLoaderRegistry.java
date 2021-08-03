@@ -1,8 +1,6 @@
 package ioc.bean_definition_registry;
 
-import utils.Scanner;
-
-import java.util.List;
+import utils.BeanScanner;
 
 /**
  * @author Zexho
@@ -12,14 +10,7 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
 
     @Override
     public void loadBean() {
-        List<Class<?>> beans = Scanner.scanBean();
-        if (beans.size() == 0) {
-            return;
-        }
-
-        for (Class<?> bean : beans) {
-            this.register(bean.getSimpleName(), bean);
-        }
+        BeanScanner.findAllBean().forEach(bean -> AnnotationDefinitionLoaderRegistry.this.register(bean.getSimpleName(), bean));
     }
 
 }

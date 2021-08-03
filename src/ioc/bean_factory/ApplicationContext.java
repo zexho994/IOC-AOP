@@ -14,7 +14,6 @@ public class ApplicationContext extends SimpleBeanFactory {
 
     public ApplicationContext(AbstractDefinitionLoaderRegistry registry) {
         super(registry);
-
         registry.loadBean();
     }
 
@@ -34,7 +33,7 @@ public class ApplicationContext extends SimpleBeanFactory {
         return bean.getInstance();
     }
 
-    public void initBean(BeanDefinition beanDefinition) throws IllegalAccessException {
+    private void initBean(BeanDefinition beanDefinition) throws IllegalAccessException {
         Object instance = beanDefinition.getInstance();
 
         for (Field field : instance.getClass().getFields()) {

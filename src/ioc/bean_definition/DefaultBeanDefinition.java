@@ -19,7 +19,7 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
     /**
      * Bean status
      */
-    private int status = 0;
+    private int status = STATUS_UNINITIALIZED;
 
     /**
      * Instantiates a new Default bean definition.
