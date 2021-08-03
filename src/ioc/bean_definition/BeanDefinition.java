@@ -8,6 +8,9 @@ package ioc.bean_definition;
  */
 public interface BeanDefinition {
 
+    int STATUS_UNINITIALIZED = 0;
+    int STATUS_INITIALIZED = 1;
+
     /**
      * Sets name.
      *
@@ -41,6 +44,17 @@ public interface BeanDefinition {
      *
      * @return bean class
      */
-    Class getBeanClass();
+    Class<?> getBeanClass();
 
+    /**
+     * 判断bean是否有初始化
+     *
+     * @return status == {@link #STATUS_INITIALIZED} ?
+     */
+    Boolean isInit();
+
+    /**
+     * set status to {@link #STATUS_INITIALIZED}
+     */
+    void setStatusInitialized();
 }

@@ -13,6 +13,11 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
     private final Class<T> beanClass;
     private T beanInstance = null;
 
+    /**
+     * Bean status
+     */
+    private int status = 0;
+
     public DefaultBeanDefinition(String name, Class<T> clazz) {
         this.beanName = name;
         this.beanClass = clazz;
@@ -65,4 +70,13 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
         return this.beanClass;
     }
 
+    @Override
+    public Boolean isInit() {
+        return this.status == STATUS_INITIALIZED;
+    }
+
+    @Override
+    public void setStatusInitialized() {
+        this.status = STATUS_INITIALIZED;
+    }
 }

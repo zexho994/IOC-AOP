@@ -2,9 +2,6 @@ package ioc.bean_definition_registry;
 
 import utils.Scanner;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,12 +17,9 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
             return;
         }
 
-        // 创建实例
         for (Class<?> bean : beans) {
             this.register(bean.getSimpleName(), bean);
         }
-
-        ;
     }
 
 }

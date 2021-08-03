@@ -10,8 +10,8 @@ import ioc.bean_factory.ApplicationContext;
 public class App {
 
     public static void main(String[] args) {
-//        useCodeBeanDefinition();
-        useAnnotationBeanDefinition();
+        useCodeBeanDefinition();
+//        useAnnotationBeanDefinition();
     }
 
     public static void useCodeBeanDefinition() {
@@ -40,8 +40,9 @@ public class App {
         obj2.print();
 
         // 测试自动装载@Autowired
-        AutowiredTest at = factory.getBeanInstance("AutowiredTest", AutowiredTest.class);
-        at.print();
+        AutowiredTest at = (AutowiredTest) factory.getBean("AutowiredTest");
+        at.print1();
+        at.print2();
     }
 
 }

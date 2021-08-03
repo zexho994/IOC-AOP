@@ -7,11 +7,11 @@ package exceptions;
 public class NoSuchBeanException extends RuntimeException {
 
     public NoSuchBeanException(String name) {
-        super("No bean named " + name + "available");
+        super("No bean named " + name + " available");
     }
 
-    public NoSuchBeanException(String name, Class clazz) {
-        super("No bean named " + name + ", class " + clazz.getName() + "available");
+    public NoSuchBeanException(String name, Class<?> clazz) {
+        super("No bean named " + name + ", class " + clazz.getName() + " available");
     }
 
 }
