@@ -1,7 +1,5 @@
 package aop;
 
-import java.lang.reflect.Proxy;
-
 /**
  * @author Zexho
  * @date 2021/8/4 4:18 下午
@@ -25,16 +23,15 @@ public class Client {
      * 使用JDK静态代理
      */
     public static void useDynamicProxy() {
-        ISubject subjectProxy = (ISubject) Proxy.newProxyInstance(
-                SubjectImpl.class.getClassLoader(),
-                SubjectImpl.class.getInterfaces(),
-                new RequestDynamicProxy(new SubjectImpl()));
+        // 动态代理构造类
+        RequestDynamicProxy proxy = new RequestDynamicProxy();
+
+        // 获取ISubject的代理类
+        ISubject subjectProxy = proxy.getDynamicProxyImpl(new SubjectImpl());
         subjectProxy.request();
 
-        IRequest requestProxy = (IRequest) Proxy.newProxyInstance(
-                RequestImpl.class.getClassLoader(),
-                RequestImpl.class.getInterfaces(),
-                new RequestDynamicProxy(new RequestImpl()));
+        // 获取IRequest的代理类
+        IRequest requestProxy = proxy.getDynamicProxyImpl(new RequestImpl());
         requestProxy.request();
     }
 }

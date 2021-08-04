@@ -13,6 +13,13 @@ public class SubjectProxy implements ISubject {
     }
 
     @Override
+    public void subjectName() {
+        this.before();
+        this.subject.subjectName();
+        this.after();
+    }
+
+    @Override
     public void request() {
         this.before();
         subject.request();

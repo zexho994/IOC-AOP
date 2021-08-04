@@ -7,6 +7,11 @@ package aop;
 public class SubjectImpl implements ISubject {
 
     @Override
+    public void subjectName() {
+        System.out.println("subject impl name");
+    }
+
+    @Override
     public void request() {
         System.out.println("subject impl");
     }
