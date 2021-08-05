@@ -1,12 +1,17 @@
 package aop;
 
+import aop.cglib_proxy.CglibProxy;
+import aop.cglib_proxy.SingleClass;
+import aop.jdk_dynamic_proxy.RequestDynamicProxy;
+import aop.static_proxy.SubjectProxy;
+
 /**
  * @author Zexho
  * @date 2021/8/4 4:18 下午
  */
 public class Client {
     public static void main(String[] args) {
-        useDynamicProxy();
+        useCglibProxy();
     }
 
     /**
@@ -33,5 +38,11 @@ public class Client {
         // 获取IRequest的代理类
         IRequest requestProxy = proxy.getDynamicProxyImpl(new RequestImpl());
         requestProxy.request();
+    }
+
+    public static void useCglibProxy() {
+        SingleClass enhancer = CglibProxy.getProxy(new SingleClass());
+        enhancer.print1();
+        enhancer.print2();
     }
 }

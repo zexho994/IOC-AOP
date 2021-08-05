@@ -1,4 +1,6 @@
-package aop;
+package aop.static_proxy;
+
+import aop.ISubject;
 
 /**
  * @author Zexho

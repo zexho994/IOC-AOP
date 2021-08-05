@@ -1,4 +1,4 @@
-package aop;
+package aop.jdk_dynamic_proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
