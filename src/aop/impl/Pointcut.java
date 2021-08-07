@@ -10,4 +10,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Pointcut {
+
+    // 使用beanName定义切点
+    String beanName();
+
 }
