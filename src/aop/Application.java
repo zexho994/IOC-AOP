@@ -9,7 +9,7 @@ import aop.static_proxy.SubjectProxy;
  * @author Zexho
  * @date 2021/8/4 4:18 下午
  */
-public class Client {
+public class Application {
     public static void main(String[] args) {
         useCglibProxy();
     }

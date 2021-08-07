@@ -1,3 +1,5 @@
+package ioc;
+
 import ioc.*;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
@@ -7,7 +9,7 @@ import ioc.bean_factory.ApplicationContext;
  * @author Zexho
  * @date 2021/7/31 10:44 上午
  */
-public class App {
+public class Application {
 
     public static void main(String[] args) {
         useAnnotationBeanDefinition();
