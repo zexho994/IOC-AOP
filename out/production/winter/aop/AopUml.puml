@@ -1,0 +1,100 @@
+====================================================
+使用AOP时序图
+@startuml
+start
+:添加切入点T;
+note left
+@Pointcut(xxx)
+public void foo( )
+end note
+split
+    :使用beanName定义;
+note left
+    1.0支持
+end note
+split again
+    :使用package name定义;
+    note left
+    2.0支持
+    end note
+end split
+:编写切面 P;
+note left
+public void log(){
+    // 切入代码
+}
+end note
+:定义切入规则;
+note left
+log方法上添加注解
+end note
+partition 3种可选类型{
+    split
+        :@Before;
+        note left
+        在目标点之前执行切面P
+        1.0支持
+        end note
+    split again
+        :@After;
+        note left
+        在目标点之后执行切面P
+        1.0支持
+        end note
+    split again
+        :@Around;
+        note right
+        在目标点前后都执行切面P
+        2.0支持
+        end note
+    split end
+}
+:为切面配置切入点;
+note left
+在切入规则注解中添加@Before("com.src.xxx")
+既T的路径
+end note
+end
+@enduml
+
+====================================================
+AOP执行逻辑活动图
+@startuml
+|IOC容器|
+start
+    :扫描Bean;
+    :如果有@Aspect注解;
+    note left: 说明该Bean属于切面类
+    ->为该类进行AOP配置;
+|#AntiqueWhite|AOP|
+    :根据@Pointcut方法获取切点对象;
+    :获取切入规则;
+    split
+        :@Before;
+'        note left:在目标点之前执行
+    split again
+        :@After;
+'        note :在目标点之后执行
+    split again
+        :@After-returning;
+'        note :在目标执行成功后执行
+    split again
+        :@After-throwing;
+'        note :在目标点异常后执行
+    split again
+        :@Around;
+'        note :在目标点<b>前后</b>之后执行
+    end split
+    partition 生成代理类 {
+    if (代理类有父接口？) then (yes)
+        :使用JDK动态代理生成代理类;
+    else (no)
+        :使用cglib生成代理类;
+    endif
+    }
+    floating note right: 生成逻辑需要结合切入规则生成
+|IOC容器|
+    :使用代理类替代原始Bean;
+end
+@enduml
+====================================================
