@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 public @interface Pointcut {
 
     // 使用beanName定义切点
-    String beanName();
+    String beanName() default "";
 
 }

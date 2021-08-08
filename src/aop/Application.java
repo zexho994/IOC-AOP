@@ -3,7 +3,11 @@ package aop;
 import aop.cglib_proxy.CglibProxy;
 import aop.cglib_proxy.SingleClass;
 import aop.jdk_dynamic_proxy.RequestDynamicProxy;
+import aop.sample.SampleClass;
 import aop.static_proxy.SubjectProxy;
+import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
+import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
+import ioc.bean_factory.ApplicationContext;
 
 /**
  * @author Zexho
@@ -11,7 +15,14 @@ import aop.static_proxy.SubjectProxy;
  */
 public class Application {
     public static void main(String[] args) {
-        useCglibProxy();
+        // 创建一个注册类,Bean通过注解的方式自动注入
+        AbstractDefinitionLoaderRegistry registry = new AnnotationDefinitionLoaderRegistry();
+        // 注册类添加到工厂中
+        ApplicationContext factory = new ApplicationContext(registry);
+
+        // 测试自动装载@Autowired
+        SampleClass sample = (SampleClass) factory.getBean("SampleClass");
+        sample.print();
     }
 
     /**

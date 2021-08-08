@@ -24,14 +24,19 @@ public class BeanScanner {
         String path = Objects.requireNonNull(contextClassLoader.getResource("")).getPath();
 
         for (String c : classes) {
+            String fullyQualifiedName = parseFullyQualifiedName(c, path.length());
+            Class<?> aClass;
+
             try {
-                Class<?> aClass = contextClassLoader.loadClass(parseFullyQualifiedName(c, path.length()));
-                if (isBean(aClass)) {
-                    beans.add(aClass);
-                }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                aClass = contextClassLoader.loadClass(fullyQualifiedName);
+            } catch (Exception ex) {
+                continue;
             }
+
+            if (!isBean(aClass)) {
+                continue;
+            }
+            beans.add(aClass);
         }
         return beans;
     }

@@ -1,5 +1,7 @@
 package ioc.bean_definition;
 
+import aop.impl.Aspect;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -33,6 +35,12 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
 
         createInstance();
     }
+
+    @Override
+    public boolean isAspect() {
+        return this.beanClass.getDeclaredAnnotationsByType(Aspect.class).length > 0;
+    }
+
 
     /**
      * 为本Bean创建一个实例，
@@ -86,4 +94,5 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
     public void setStatusInitialized() {
         this.status = STATUS_INITIALIZED;
     }
+
 }

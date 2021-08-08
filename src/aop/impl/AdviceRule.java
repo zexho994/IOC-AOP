@@ -3,13 +3,12 @@ package aop.impl;
 import java.lang.annotation.*;
 
 /**
- * 在方法执行前增强
- *
  * @author Zexho
- * @date 2021/8/7 10:22 上午
+ * @date 2021/8/8 10:16 下午
  */
 @Target(value = {ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Before {
+@Inherited
+public @interface AdviceRule {
 }
