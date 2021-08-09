@@ -39,13 +39,12 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
                 continue;
             }
             BeanDefinition targetBean = this.getBean(pointcuts[0].beanName());
-            Class<?> beanClass = targetBean.getBeanClass();
             AnnotatedType[] annotatedInterfaces = targetBean.getBeanClass().getAnnotatedInterfaces();
             int interfaceCount = annotatedInterfaces.length;
             if (method.getDeclaredAnnotationsByType(Before.class).length > 0) {
                 if (interfaceCount > 0) {
                     JDKDynamicProxy jdkDynamicProxy = new JDKDynamicProxy();
-                    Object proxy = jdkDynamicProxy.getDynamicProxyImpl(targetBean.getInstance(), method, null);
+                    Object proxy = jdkDynamicProxy.getDynamicProxyImpl(targetBean.getInstance(), method, bean.getInstance());
                     BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
                     registerBean(targetBean.getName(), beanDefinition);
                 } else {

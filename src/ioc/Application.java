@@ -1,6 +1,5 @@
 package ioc;
 
-import ioc.*;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
 import ioc.bean_factory.ApplicationContext;
