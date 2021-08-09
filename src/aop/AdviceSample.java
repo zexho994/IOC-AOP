@@ -1,5 +1,6 @@
 package aop;
 
+import aop.annotations.After;
 import aop.annotations.Aspect;
 import aop.annotations.Before;
 import aop.annotations.Pointcut;
@@ -14,15 +15,22 @@ import ioc.bean_definition.Bean;
 public class AdviceSample {
 
     @Before
-    @Pointcut(beanName = "SampleClass1")
-    public void enhance1() {
+    @Pointcut(beanName = "SampleBeforeWithInterface")
+    public void enhanceBefore1() {
         System.out.println("[增强部分] 1 before");
     }
 
+    @After
+    @Pointcut(beanName = "SampleAfterWithInterface")
+    public void enhanceAfter1() {
+        System.out.println("[增强部分] 1 after");
+    }
+
     @Before
-    @Pointcut(beanName = "SampleClass2")
-    public void enhance2() {
+    @Pointcut(beanName = "SampleBeforeNotInterface")
+    public void enhance2Before() {
         System.out.println("[增强部分] 2 before");
     }
+
 
 }

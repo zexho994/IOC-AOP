@@ -4,8 +4,6 @@ import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
 import ioc.bean_factory.ApplicationContext;
 
-import java.util.Objects;
-
 /**
  * @author Zexho
  * @date 2021/8/4 4:18 下午
@@ -18,10 +16,12 @@ public class Application {
         ApplicationContext factory = new ApplicationContext(registry);
 
         // 使用JDK动态代理
-        SampleInterface sample1 = (SampleInterface) factory.getBean("SampleClass1");
-        sample1.printBefore();
+        SampleInterface sampleBefore1 = (SampleInterface) factory.getBean("SampleBeforeWithInterface");
+        sampleBefore1.print();
+        SampleInterface sampleAfter1 = (SampleInterface) factory.getBean("SampleAfterWithInterface");
+        sampleAfter1.print();
 
-        SampleClass2 sample2 = (SampleClass2) factory.getBean("SampleClass2");
-        sample2.printBefore();
+        SampleBeforeNotInterface sample2 = (SampleBeforeNotInterface) factory.getBean("SampleBeforeNotInterface");
+        sample2.print();
     }
 }

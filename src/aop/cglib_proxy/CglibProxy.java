@@ -50,10 +50,11 @@ public class CglibProxy implements MethodInterceptor {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getProxy(T target, Method before, Object beforeObj) {
+    public static <T> T getProxy(T target, Method before, Object beforeObj, Method after, Object afterObj) {
         ENHANCER.setSuperclass(target.getClass());
         CglibProxy cglibProxy = new CglibProxy();
         cglibProxy.setBefore(before, beforeObj);
+        cglibProxy.setAfter(after, afterObj);
 
         ENHANCER.setCallback(cglibProxy);
         return (T) ENHANCER.create();

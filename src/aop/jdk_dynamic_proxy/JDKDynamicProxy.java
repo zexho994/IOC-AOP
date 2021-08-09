@@ -47,11 +47,13 @@ public class JDKDynamicProxy implements InvocationHandler {
      * @return obj的父接口实现子类, 因为返回的是T父接口重写的类
      */
     @SuppressWarnings("unchecked")
-    public <T> T getDynamicProxyImpl(T obj, Method before, Object beforeObj) {
+    public <T> T getDynamicProxyImpl(T obj, Method before, Object beforeObj, Method after, Object afterObj) {
         assert obj != null;
         target = obj;
         this.before = before;
         this.beforeObj = beforeObj;
+        this.after = after;
+        this.afterObj = afterObj;
 
         // newProxyInstance() 会创建类$A，$A实现了obj的父接口，所有接口方法内容都为 {@link #invoke()} 。
         return (T) newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);

@@ -13,6 +13,7 @@ import utils.BeanScanner;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -40,28 +41,28 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
             }
             BeanDefinition targetBean = this.getBean(pointcuts[0].beanName());
             AnnotatedType[] annotatedInterfaces = targetBean.getBeanClass().getAnnotatedInterfaces();
-            int interfaceCount = annotatedInterfaces.length;
+            Object proxy;
             if (method.getDeclaredAnnotationsByType(Before.class).length > 0) {
-                if (interfaceCount > 0) {
-                    Object proxy = createProxyByJDK(targetBean.getInstance(), method, bean.getInstance());
-                    BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
-                    registerBean(targetBean.getName(), beanDefinition);
+                if (annotatedInterfaces.length > 0) {
+                    proxy = new JDKDynamicProxy().getDynamicProxyImpl(targetBean.getInstance(), method, bean.getInstance(), null, null);
                 } else {
-                    Object proxy = CglibProxy.getProxy(targetBean.getInstance(), method, bean.getInstance());
-                    BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
-                    registerBean(targetBean.getName(), beanDefinition);
+                    proxy = CglibProxy.getProxy(targetBean.getInstance(), method, bean.getInstance(), null, null);
                 }
+                BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
+                registerBean(targetBean.getName(), beanDefinition);
             } else if (method.getDeclaredAnnotationsByType(After.class).length > 0) {
+                if (annotatedInterfaces.length > 0) {
+                    proxy = new JDKDynamicProxy().getDynamicProxyImpl(targetBean.getInstance(), null, null, method, bean.getInstance());
+                } else {
+                    proxy = CglibProxy.getProxy(targetBean.getInstance(), null, null, method, bean.getInstance());
+                }
+                BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
+                registerBean(targetBean.getName(), beanDefinition);
 
             } else {
                 throw new NotFoundAspectAdvice(targetBean.getName());
             }
         }
-    }
-
-    public Object createProxyByJDK(Object targetInstance, Method targetMethod, Object invokeObj) {
-        JDKDynamicProxy jdkDynamicProxy = new JDKDynamicProxy();
-        return jdkDynamicProxy.getDynamicProxyImpl(targetInstance, targetMethod, invokeObj);
     }
 
 }
