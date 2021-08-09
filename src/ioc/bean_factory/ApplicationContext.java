@@ -1,5 +1,6 @@
 package ioc.bean_factory;
 
+import aop.annotations.Aspect;
 import ioc.bean_definition.BeanDefinition;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.Autowired;
@@ -33,18 +34,39 @@ public class ApplicationContext extends SimpleBeanFactory {
         return bean.getInstance();
     }
 
+    /**
+     * 初始化Bean
+     */
     private void initBean(BeanDefinition beanDefinition) throws IllegalAccessException {
         Object instance = beanDefinition.getInstance();
 
-        for (Field field : instance.getClass().getFields()) {
-            if (field.getDeclaredAnnotationsByType(Autowired.class).length > 0) {
-                Class<?> fieldType = field.getType();
-                Object bean = this.getBean(fieldType.getSimpleName());
-                field.set(instance, bean);
-            }
-        }
+        this.initAutowire(instance);
+        this.initAspect(instance);
 
         beanDefinition.setStatusInitialized();
+    }
+
+    /**
+     * 设置bean里面的注入字段
+     */
+    private void initAutowire(Object instance) throws IllegalAccessException {
+        for (Field field : instance.getClass().getFields()) {
+            if (field.getDeclaredAnnotationsByType(Autowired.class).length == 0) {
+                continue;
+            }
+            Class<?> fieldType = field.getType();
+            Object bean = this.getBean(fieldType.getSimpleName());
+            field.set(instance, bean);
+        }
+
+    }
+
+    private void initAspect(Object instance) {
+        Aspect[] aspects = instance.getClass().getDeclaredAnnotationsByType(Aspect.class);
+        if (aspects.length == 0) {
+            return;
+        }
+        Aspect aspect = aspects[0];
     }
 
 }

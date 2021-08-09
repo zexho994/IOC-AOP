@@ -1,12 +1,12 @@
 package ioc;
 
-import ioc.bean_definition_registry.CodeDefinitionDefinitionLoaderRegistry;
+import ioc.bean_definition_registry.CodeDefinitionLoaderRegistry;
 
 /**
  * @author Zexho
  * @date 2021/8/1 1:36 下午
  */
-public class MyCodeBeanDefinition extends CodeDefinitionDefinitionLoaderRegistry {
+public class MyCodeBeanDefinition extends CodeDefinitionLoaderRegistry {
 
     @Override
     public void loadBean() {

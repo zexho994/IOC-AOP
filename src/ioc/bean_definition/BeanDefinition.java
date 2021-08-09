@@ -57,4 +57,6 @@ public interface BeanDefinition {
      * set status to {@link #STATUS_INITIALIZED}
      */
     void setStatusInitialized();
+
+    boolean isAspect();
 }

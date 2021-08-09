@@ -1,0 +1,59 @@
+使用AOP时序图
+@startuml
+start
+:添加切入点T;
+note left
+@Pointcut(xxx)
+public void foo( )
+end note
+split
+    :使用beanName定义;
+note left
+    1.0支持
+end note
+split again
+    :使用package name定义;
+    note left
+    2.0支持
+    end note
+end split
+:编写切面 P;
+note left
+public void log(){
+    // 切入代码
+}
+end note
+:定义切入规则;
+note left
+log方法上添加注解
+end note
+
+partition 3种可选类型{
+    split
+        :@Before;
+        note left
+        在目标点之前执行切面P
+        1.0支持
+        end note
+    split again
+        :@After;
+        note left
+        在目标点之后执行切面P
+        1.0支持
+        end note
+    split again
+        :@Around;
+        note right
+        在目标点前后都执行切面P
+        2.0支持
+        end note
+    split end
+}
+
+:为切面配置切入点;
+note left
+在切入规则注解中添加@Before("com.src.xxx")
+既T的路径
+end note
+end
+@enduml
