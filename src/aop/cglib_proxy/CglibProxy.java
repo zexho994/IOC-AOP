@@ -5,6 +5,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * @author Zexho
@@ -14,6 +15,14 @@ public class CglibProxy implements MethodInterceptor {
 
     public static final Enhancer ENHANCER = new Enhancer();
 
+    private Object target = null;
+
+    private Method before = null;
+    private Method after = null;
+
+    private Object beforeObj = null;
+    private Object afterObj = null;
+
     /**
      * @param obj         cglib动态代理生成的实例
      * @param method      被调用的方法的引用
@@ -22,13 +31,33 @@ public class CglibProxy implements MethodInterceptor {
      */
     @Override
     public Object intercept(Object obj, Method method, Object[] params, MethodProxy methodProxy) throws Throwable {
-        return methodProxy.invokeSuper(obj, params);
+        if (before != null) {
+            before.invoke(beforeObj);
+        }
+        Object result = methodProxy.invokeSuper(obj, params);
+        if (after != null) {
+            after.invoke(afterObj);
+        }
+        return result;
+    }
+
+    public void setBefore(Method before, Object beforeObj) {
+        this.before = before;
+        this.beforeObj = beforeObj;
+    }
+
+    public void setAfter(Method after, Object afterObj) {
+        this.after = after;
+        this.afterObj = afterObj;
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getProxy(T target) {
+    public static <T> T getProxy(T target, Method before, Object beforeObj) {
         ENHANCER.setSuperclass(target.getClass());
-        ENHANCER.setCallback(new CglibProxy());
+        CglibProxy cglibProxy = new CglibProxy();
+        cglibProxy.setBefore(before, beforeObj);
+
+        ENHANCER.setCallback(cglibProxy);
         return (T) ENHANCER.create();
     }
 

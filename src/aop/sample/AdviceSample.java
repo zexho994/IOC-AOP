@@ -14,9 +14,16 @@ import ioc.bean_definition.Bean;
 public class AdviceSample {
 
     @Before
-    @Pointcut(beanName = "SampleClass")
-    public void enhance() {
-        System.out.println("enhance before");
+    @Pointcut(beanName = "SampleClass1")
+    public void enhance1() {
+        System.out.println("enhance 1 before");
     }
+
+    @Before
+    @Pointcut(beanName = "SampleClass2")
+    public void enhance2() {
+        System.out.println("enhance 2 before");
+    }
+
 
 }

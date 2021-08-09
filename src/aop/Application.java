@@ -3,6 +3,7 @@ package aop;
 import aop.cglib_proxy.CglibProxy;
 import aop.cglib_proxy.SingleClass;
 import aop.jdk_dynamic_proxy.JDKDynamicProxy;
+import aop.sample.SampleClass2;
 import aop.sample.SampleInterface;
 import aop.static_proxy.SubjectProxy;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
@@ -20,9 +21,12 @@ public class Application {
         // 注册类添加到工厂中
         ApplicationContext factory = new ApplicationContext(registry);
 
-        // 测试自动装载@Autowired
-        SampleInterface sample = (SampleInterface) factory.getBean("SampleClass");
-        sample.printBefore();
+        // 使用JDK动态代理
+        SampleInterface sample1 = (SampleInterface) factory.getBean("SampleClass1");
+        sample1.printBefore();
+
+        SampleClass2 sample2 = (SampleClass2) factory.getBean("SampleClass2");
+        sample2.printBefore();
     }
 
     /**
@@ -52,7 +56,7 @@ public class Application {
     }
 
     public static void useCglibProxy() {
-        SingleClass enhancer = CglibProxy.getProxy(new SingleClass());
+        SingleClass enhancer = CglibProxy.getProxy(new SingleClass(),null,null);
         enhancer.print1();
         enhancer.print2();
     }

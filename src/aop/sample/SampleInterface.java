@@ -6,5 +6,6 @@ package aop.sample;
  */
 public interface SampleInterface {
     void printBefore();
+
     void printAfter();
 }

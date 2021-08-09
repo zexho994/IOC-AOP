@@ -48,8 +48,9 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
                     BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
                     registerBean(targetBean.getName(), beanDefinition);
                 } else {
-                    // 没有接口使用cglib
-                    CglibProxy cglibProxy = new CglibProxy();
+                    Object proxy = CglibProxy.getProxy(targetBean.getInstance(), method, bean.getInstance());
+                    BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
+                    registerBean(targetBean.getName(), beanDefinition);
                 }
             } else if (method.getDeclaredAnnotationsByType(After.class).length > 0) {
                 System.out.printf("annotated interfaces count = %s, advice = %s\n", interfaceCount, After.class);
@@ -60,10 +61,5 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
             }
         }
     }
-
-    public void createProxyObject() {
-
-    }
-
 
 }
