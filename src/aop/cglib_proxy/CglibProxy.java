@@ -22,10 +22,7 @@ public class CglibProxy implements MethodInterceptor {
      */
     @Override
     public Object intercept(Object obj, Method method, Object[] params, MethodProxy methodProxy) throws Throwable {
-        System.out.println("cglib before");
-        Object res = methodProxy.invokeSuper(obj, params);
-        System.out.println("cglib after");
-        return res;
+        return methodProxy.invokeSuper(obj, params);
     }
 
     @SuppressWarnings("unchecked")

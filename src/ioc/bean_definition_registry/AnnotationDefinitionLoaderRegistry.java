@@ -1,9 +1,13 @@
 package ioc.bean_definition_registry;
 
+import aop.cglib_proxy.CglibProxy;
+import aop.impl.After;
 import aop.impl.Before;
 import aop.impl.Pointcut;
+import aop.jdk_dynamic_proxy.JDKDynamicProxy;
 import exceptions.NotFoundAspectAdvice;
 import ioc.bean_definition.BeanDefinition;
+import ioc.bean_definition.DefaultBeanDefinition;
 import utils.BeanScanner;
 
 import java.lang.reflect.AnnotatedType;
@@ -35,13 +39,32 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
                 continue;
             }
             BeanDefinition targetBean = this.getBean(pointcuts[0].beanName());
-            AnnotatedType[] annotatedInterfaces = bean.getBeanClass().getAnnotatedInterfaces();
+            Class<?> beanClass = targetBean.getBeanClass();
+            AnnotatedType[] annotatedInterfaces = targetBean.getBeanClass().getAnnotatedInterfaces();
+            int interfaceCount = annotatedInterfaces.length;
             if (method.getDeclaredAnnotationsByType(Before.class).length > 0) {
-                System.out.printf("annotated interfaces count = %s, advice = %s\n", annotatedInterfaces.length, Before.class);
+                if (interfaceCount > 0) {
+                    JDKDynamicProxy jdkDynamicProxy = new JDKDynamicProxy();
+                    Object proxy = jdkDynamicProxy.getDynamicProxyImpl(targetBean.getInstance(), method, null);
+                    BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
+                    registerBean(targetBean.getName(), beanDefinition);
+                } else {
+                    // 没有接口使用cglib
+                    CglibProxy cglibProxy = new CglibProxy();
+                }
+            } else if (method.getDeclaredAnnotationsByType(After.class).length > 0) {
+                System.out.printf("annotated interfaces count = %s, advice = %s\n", interfaceCount, After.class);
+                //
+
             } else {
                 throw new NotFoundAspectAdvice(targetBean.getName());
             }
-
         }
     }
+
+    public void createProxyObject() {
+
+    }
+
+
 }

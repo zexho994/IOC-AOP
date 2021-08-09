@@ -2,8 +2,9 @@ package aop;
 
 import aop.cglib_proxy.CglibProxy;
 import aop.cglib_proxy.SingleClass;
-import aop.jdk_dynamic_proxy.RequestDynamicProxy;
+import aop.jdk_dynamic_proxy.JDKDynamicProxy;
 import aop.sample.SampleClass;
+import aop.sample.SampleInterface;
 import aop.static_proxy.SubjectProxy;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
@@ -21,7 +22,7 @@ public class Application {
         ApplicationContext factory = new ApplicationContext(registry);
 
         // 测试自动装载@Autowired
-        SampleClass sample = (SampleClass) factory.getBean("SampleClass");
+        SampleInterface sample = (SampleInterface) factory.getBean("SampleClass");
         sample.print();
     }
 
@@ -40,14 +41,14 @@ public class Application {
      */
     public static void useDynamicProxy() {
         // 动态代理构造类
-        RequestDynamicProxy proxy = new RequestDynamicProxy();
+        JDKDynamicProxy proxy = new JDKDynamicProxy();
 
         // 获取ISubject的代理类
-        ISubject subjectProxy = proxy.getDynamicProxyImpl(new SubjectImpl());
+        ISubject subjectProxy = proxy.getDynamicProxyImpl(new SubjectImpl(), null, null);
         subjectProxy.request();
 
         // 获取IRequest的代理类
-        IRequest requestProxy = proxy.getDynamicProxyImpl(new RequestImpl());
+        IRequest requestProxy = proxy.getDynamicProxyImpl(new RequestImpl(), null, null);
         requestProxy.request();
     }
 

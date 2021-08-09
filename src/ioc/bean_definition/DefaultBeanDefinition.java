@@ -1,6 +1,7 @@
 package ioc.bean_definition;
 
 import aop.impl.Aspect;
+import aop.jdk_dynamic_proxy.JDKDynamicProxy;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -36,6 +37,12 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
         createInstance();
     }
 
+    public DefaultBeanDefinition(String name, Class<T> clazz, Object instance) {
+        this.beanName = name;
+        this.beanClass = clazz;
+        this.beanInstance = (T) instance;
+    }
+
     @Override
     public boolean isAspect() {
         return this.beanClass.getDeclaredAnnotationsByType(Aspect.class).length > 0;
@@ -47,15 +54,23 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
      */
     @SuppressWarnings("unchecked")
     public void createInstance() {
-        Constructor<?>[] declaredConstructors = this.beanClass.getConstructors();
-        Constructor<?> noArgsConstructor = declaredConstructors[0];
-        noArgsConstructor.setAccessible(true);
-
-        try {
-            this.beanInstance = (T) noArgsConstructor.newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
+        Constructor<?> constructor = this.beanClass.getConstructors()[0];
+        constructor.setAccessible(true);
+        int parameterCount = constructor.getParameterCount();
+        if (parameterCount == 0) {
+            try {
+                this.beanInstance = (T) constructor.newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
+            }
+        } else {
+            try {
+                this.beanInstance = (T) constructor.newInstance(new JDKDynamicProxy());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
+            }
         }
+
 
     }
 

@@ -7,7 +7,8 @@ import ioc.bean_definition.Bean;
  * @date 2021/8/7 11:19 下午
  */
 @Bean
-public class SampleClass {
+public class SampleClass implements SampleInterface {
+    @Override
     public void print() {
         System.out.println("sample class print");
     }
