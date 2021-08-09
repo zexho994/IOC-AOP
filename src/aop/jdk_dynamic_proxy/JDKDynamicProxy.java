@@ -17,6 +17,7 @@ public class JDKDynamicProxy implements InvocationHandler {
     private Method after = null;
 
     private Object beforeObj = null;
+    private Object afterObj = null;
 
 
     /**
@@ -29,7 +30,14 @@ public class JDKDynamicProxy implements InvocationHandler {
         if (before != null) {
             before.invoke(beforeObj);
         }
-        return method.invoke(target, args);
+
+        Object invoke = method.invoke(target, args);
+
+        if (after != null) {
+            after.invoke(afterObj);
+        }
+
+        return invoke;
     }
 
     /**
@@ -54,7 +62,8 @@ public class JDKDynamicProxy implements InvocationHandler {
         this.beforeObj = beforeObj;
     }
 
-    public void setAfter(Method after) {
+    public void setAfter(Method after, Object afterObj) {
         this.after = after;
+        this.afterObj = afterObj;
     }
 }

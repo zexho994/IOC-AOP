@@ -9,7 +9,12 @@ import ioc.bean_definition.Bean;
 @Bean
 public class SampleClass implements SampleInterface {
     @Override
-    public void print() {
-        System.out.println("sample class print");
+    public void printBefore() {
+        System.out.println("sample class print before");
+    }
+
+    @Override
+    public void printAfter() {
+        System.out.println("sample class print after");
     }
 }

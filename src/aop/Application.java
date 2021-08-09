@@ -3,7 +3,6 @@ package aop;
 import aop.cglib_proxy.CglibProxy;
 import aop.cglib_proxy.SingleClass;
 import aop.jdk_dynamic_proxy.JDKDynamicProxy;
-import aop.sample.SampleClass;
 import aop.sample.SampleInterface;
 import aop.static_proxy.SubjectProxy;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
@@ -23,7 +22,7 @@ public class Application {
 
         // 测试自动装载@Autowired
         SampleInterface sample = (SampleInterface) factory.getBean("SampleClass");
-        sample.print();
+        sample.printBefore();
     }
 
     /**
