@@ -1,9 +1,9 @@
 package ioc.bean_definition_registry;
 
 import aop.cglib_proxy.CglibProxy;
-import aop.impl.After;
-import aop.impl.Before;
-import aop.impl.Pointcut;
+import aop.annotations.After;
+import aop.annotations.Before;
+import aop.annotations.Pointcut;
 import aop.jdk_dynamic_proxy.JDKDynamicProxy;
 import exceptions.NotFoundAspectAdvice;
 import ioc.bean_definition.BeanDefinition;
@@ -43,8 +43,7 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
             int interfaceCount = annotatedInterfaces.length;
             if (method.getDeclaredAnnotationsByType(Before.class).length > 0) {
                 if (interfaceCount > 0) {
-                    JDKDynamicProxy jdkDynamicProxy = new JDKDynamicProxy();
-                    Object proxy = jdkDynamicProxy.getDynamicProxyImpl(targetBean.getInstance(), method, bean.getInstance());
+                    Object proxy = createProxyByJDK(targetBean.getInstance(), method, bean.getInstance());
                     BeanDefinition beanDefinition = new DefaultBeanDefinition<>(targetBean.getName(), targetBean.getBeanClass(), proxy);
                     registerBean(targetBean.getName(), beanDefinition);
                 } else {
@@ -53,13 +52,16 @@ public class AnnotationDefinitionLoaderRegistry extends AbstractDefinitionLoader
                     registerBean(targetBean.getName(), beanDefinition);
                 }
             } else if (method.getDeclaredAnnotationsByType(After.class).length > 0) {
-                System.out.printf("annotated interfaces count = %s, advice = %s\n", interfaceCount, After.class);
-                //
 
             } else {
                 throw new NotFoundAspectAdvice(targetBean.getName());
             }
         }
+    }
+
+    public Object createProxyByJDK(Object targetInstance, Method targetMethod, Object invokeObj) {
+        JDKDynamicProxy jdkDynamicProxy = new JDKDynamicProxy();
+        return jdkDynamicProxy.getDynamicProxyImpl(targetInstance, targetMethod, invokeObj);
     }
 
 }

@@ -15,12 +15,10 @@ public class CglibProxy implements MethodInterceptor {
 
     public static final Enhancer ENHANCER = new Enhancer();
 
-    private Object target = null;
-
     private Method before = null;
-    private Method after = null;
-
     private Object beforeObj = null;
+
+    private Method after = null;
     private Object afterObj = null;
 
     /**

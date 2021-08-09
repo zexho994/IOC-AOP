@@ -1,6 +1,6 @@
 package ioc.bean_definition;
 
-import aop.impl.Aspect;
+import aop.annotations.Aspect;
 import aop.jdk_dynamic_proxy.JDKDynamicProxy;
 
 import java.lang.reflect.Constructor;

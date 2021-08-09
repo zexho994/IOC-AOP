@@ -1,14 +1,10 @@
 package aop;
 
-import aop.cglib_proxy.CglibProxy;
-import aop.cglib_proxy.SingleClass;
-import aop.jdk_dynamic_proxy.JDKDynamicProxy;
-import aop.sample.SampleClass2;
-import aop.sample.SampleInterface;
-import aop.static_proxy.SubjectProxy;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.AnnotationDefinitionLoaderRegistry;
 import ioc.bean_factory.ApplicationContext;
+
+import java.util.Objects;
 
 /**
  * @author Zexho
@@ -27,37 +23,5 @@ public class Application {
 
         SampleClass2 sample2 = (SampleClass2) factory.getBean("SampleClass2");
         sample2.printBefore();
-    }
-
-    /**
-     * 使用静态代理，代理ISubject
-     */
-    public void useStaticProxy() {
-        ISubject subject = new SubjectImpl();
-        ISubject subjectProxy = new SubjectProxy(subject);
-
-        subjectProxy.request();
-    }
-
-    /**
-     * 使用JDK静态代理
-     */
-    public static void useDynamicProxy() {
-        // 动态代理构造类
-        JDKDynamicProxy proxy = new JDKDynamicProxy();
-
-        // 获取ISubject的代理类
-        ISubject subjectProxy = proxy.getDynamicProxyImpl(new SubjectImpl(), null, null);
-        subjectProxy.request();
-
-        // 获取IRequest的代理类
-        IRequest requestProxy = proxy.getDynamicProxyImpl(new RequestImpl(), null, null);
-        requestProxy.request();
-    }
-
-    public static void useCglibProxy() {
-        SingleClass enhancer = CglibProxy.getProxy(new SingleClass(),null,null);
-        enhancer.print1();
-        enhancer.print2();
     }
 }

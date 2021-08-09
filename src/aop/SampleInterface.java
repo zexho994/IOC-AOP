@@ -1,4 +1,4 @@
-package aop.sample;
+package aop;
 
 /**
  * @author Zexho

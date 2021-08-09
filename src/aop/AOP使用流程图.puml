@@ -1,41 +1,4 @@
-@startuml
-left to right direction
-
-@enduml
-
-
-'类图
-@startuml
-annotation Aspect {
-}
-annotation Pointcut{
-    +execution()  // 匹配方法签名
-}
-
-note left of Aspect : 声明切面
-note top of Pointcut : 定义切入点
-
-interface Advice
-
-@enduml
-
-@startuml
-left to right direction
-
-:User: --> (Pointcut):声明
-
-:User: --> (Advice):声明
-(Pointcut) <-- (Aspect) : 修饰
-(Advice) <-- (Aspect) : 修饰
-(Advice) --> (Pointcut):使用
-
-note bottom of Aspect : 在Pointcut和Advice类上声明
-note top of Pointcut : 声明切点
-note bottom of Advice : 指定切点的切入规则:before,after,around
-
-@enduml
-
-'使用AOP时序图
+使用AOP时序图
 @startuml
 start
 :添加切入点T;
@@ -92,8 +55,5 @@ note left
 在切入规则注解中添加@Before("com.src.xxx")
 既T的路径
 end note
-
 end
-
-
 @enduml

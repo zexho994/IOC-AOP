@@ -1,6 +1,6 @@
 package ioc.bean_factory;
 
-import aop.impl.Aspect;
+import aop.annotations.Aspect;
 import ioc.bean_definition.BeanDefinition;
 import ioc.bean_definition_registry.AbstractDefinitionLoaderRegistry;
 import ioc.bean_definition_registry.Autowired;
