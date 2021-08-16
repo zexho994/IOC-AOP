@@ -39,18 +39,19 @@ public class ApplicationContext extends SimpleBeanFactory {
      */
     private void initBean(BeanDefinition beanDefinition) throws IllegalAccessException {
         Object instance = beanDefinition.getInstance();
+        beanDefinition.setStatusInitialized();
 
         this.initAutowire(instance);
         this.initAspect(instance);
 
-        beanDefinition.setStatusInitialized();
     }
 
     /**
      * 设置bean里面的注入字段
      */
     private void initAutowire(Object instance) throws IllegalAccessException {
-        for (Field field : instance.getClass().getFields()) {
+        Field[] fields = instance.getClass().getFields();
+        for (Field field : fields) {
             if (field.getDeclaredAnnotationsByType(Autowired.class).length == 0) {
                 continue;
             }

@@ -1,4 +1,4 @@
-package ioc;
+package ioc.test.usecodebean;
 
 /**
  * @author Zexho

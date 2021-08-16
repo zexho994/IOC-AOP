@@ -1,7 +1,9 @@
-package ioc;
+package ioc.test.autowired;
 
 import ioc.bean_definition.Bean;
 import ioc.bean_definition_registry.Autowired;
+import ioc.test.usecodebean.BeanTest1;
+import ioc.test.usecodebean.BeanTest2;
 
 /**
  * 自动注入测试类

@@ -1,6 +1,8 @@
 package ioc;
 
 import ioc.bean_definition_registry.CodeDefinitionLoaderRegistry;
+import ioc.test.usecodebean.BeanTest1;
+import ioc.test.usecodebean.BeanTest2;
 
 /**
  * @author Zexho

@@ -1,4 +1,4 @@
-package ioc;
+package ioc.test.usecodebean;
 
 import ioc.bean_definition.Bean;
 

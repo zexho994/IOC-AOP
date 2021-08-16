@@ -1,7 +1,6 @@
 package ioc.bean_definition;
 
 import aop.annotations.Aspect;
-import aop.jdk_dynamic_proxy.JDKDynamicProxy;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -56,19 +55,10 @@ public class DefaultBeanDefinition<T> implements BeanDefinition {
     public void createInstance() {
         Constructor<?> constructor = this.beanClass.getConstructors()[0];
         constructor.setAccessible(true);
-        int parameterCount = constructor.getParameterCount();
-        if (parameterCount == 0) {
-            try {
-                this.beanInstance = (T) constructor.newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
-            }
-        } else {
-            try {
-                this.beanInstance = (T) constructor.newInstance(new JDKDynamicProxy());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
-            }
+        try {
+            this.beanInstance = (T) constructor.newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("create new instance error, beanClass =  " + this.beanClass + ", msg = " + e);
         }
 
 
